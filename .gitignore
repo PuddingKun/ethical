@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Python
+backend/venv/
+backend/.venv/
+__pycache__/
+*.pyc
+
+# Environment files (keep your keys safe)
+.env
+.env.local
+backend/.env
+frontend/.env.local
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Misc
+.DS_Store
+*.log
