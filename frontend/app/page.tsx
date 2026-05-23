@@ -70,7 +70,10 @@ export default function Home() {
     try {
       const res = await fetch("http://localhost:8000/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+  "Content-Type": "application/json",
+  "ngrok-skip-browser-warning": "true"
+},
         body: JSON.stringify({
           message: msg,
           history: messages.map(m => ({
