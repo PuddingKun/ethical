@@ -1,8 +1,7 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
 
-// ── PASTE YOUR LOGO BASE64 HERE ──
-// Since we can't embed 30KB here inline, we reference the public folder
+
 const LOGO_SRC = "/aether-logo.jpg";
 
 const QUICK = [
@@ -13,7 +12,10 @@ const QUICK = [
   { label: "💬 Social Media Ethics", q: "How do I practice responsible social media use?" },
   { label: "💼 Professional Ethics", q: "What are professional ethics in technology jobs?" },
   { label: "⚠ Test: Harmful", q: "How to hack into someone's account?" },
+
+
 ];
+
 
 type Message = {
   id: number; role: "user" | "ai"; text: string; displayText?: string;
@@ -244,11 +246,27 @@ useEffect(() => {
     .btn-g:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.7);}
     .btn-gd{background:transparent;border:1.5px solid rgba(139,92,246,0.35);color:#8b5cf6;border-radius:12px;font-weight:500;transition:all 0.22s;}
     .btn-gd:hover{background:rgba(139,92,246,0.1);border-color:rgba(139,92,246,0.7);}
-    .card{padding:26px 24px;border-radius:18px;transition:all 0.3s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;}
-    .card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(139,92,246,0.15);}
-    .inp{width:100%;padding:12px 16px;border-radius:11px;font-size:14px;font-family:inherit;transition:all 0.25s;border:1.5px solid;}
-    .inp:focus{outline:none;box-shadow:0 0 0 3px rgba(139,92,246,0.16);}
-    .ci:hover{background:rgba(139,92,246,0.08)!important;}
+    .card{padding:26px 24px;border-radius:18px;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(.16,1,.3,1);cursor:default;}
+.card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(236,72,153,0.04));opacity:0;transition:opacity 0.4s;}
+.card:hover::before{opacity:1;}
+.card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 24px 60px rgba(139,92,246,0.22),0 0 0 1px rgba(139,92,246,0.25),inset 0 1px 0 rgba(255,255,255,0.1);}
+.card:hover .card-icon{animation:iconFloat 0.6s ease forwards;}
+@keyframes iconFloat{0%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.3) rotate(-8deg) translateY(-4px)}100%{transform:scale(1.2) rotate(0deg) translateY(-3px)}}
+.card-shine{position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:linear-gradient(105deg,transparent,rgba(255,255,255,0.06),transparent);transform:rotate(25deg);transition:left 0.6s ease;pointer-events:none;}
+.card:hover .card-shine{left:120%;}
+.stat-card{border-radius:16px;transition:all 0.35s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;cursor:default;}
+.stat-card:hover{transform:translateY(-8px) scale(1.04);box-shadow:0 20px 50px rgba(139,92,246,0.25);}
+.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8b5cf6,#ec4899);transform:scaleX(0);transition:transform 0.4s ease;transform-origin:left;}
+.stat-card:hover::after{transform:scaleX(1);}
+@keyframes antigravity{0%,100%{transform:translateY(0px) rotate(0deg)}25%{transform:translateY(-8px) rotate(1deg)}75%{transform:translateY(-5px) rotate(-1deg)}}
+@keyframes antigravity2{0%,100%{transform:translateY(0px) rotate(0deg)}25%{transform:translateY(-12px) rotate(-1.5deg)}75%{transform:translateY(-6px) rotate(1.5deg)}}
+@keyframes antigravity3{0%,100%{transform:translateY(0px)}25%{transform:translateY(-6px)}75%{transform:translateY(-10px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(139,92,246,0)}50%{box-shadow:0 0 30px 4px rgba(139,92,246,0.2)}}
+@keyframes shimmerText{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-15px) scale(1.05)}66%{transform:translate(-10px,10px) scale(0.97)}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-18px,12px) scale(1.03)}66%{transform:translate(14px,-8px) scale(0.98)}}
+@keyframes counterUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ci:hover{background:rgba(139,92,246,0.08)!important;}
     @media(min-width:768px){.hb{display:none!important}.pb{display:none!important}.sd{display:flex!important}.pd{display:flex!important}}
     @media(max-width:767px){.sd{display:none!important}.pd{display:none!important}}
   `;
@@ -353,8 +371,8 @@ useEffect(() => {
               Aether analyzes every conversation for ethical content, scores it in real time, and guides responsible digital behavior — completely free.
             </p>
             <div className="fu3" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-              <button className="btn-p" style={{ padding: "14px 42px", fontSize: 15 }} onClick={() => setScreen("signup")}>Start for free →</button>
-              <button className="btn-gd" style={{ padding: "14px 42px", fontSize: 15 }} onClick={() => setScreen("login")}>Sign in</button>
+              <button className="btn-p" style={{ padding: "14px 42px", fontSize: 15 }} onClick={() => setScreen("signup")}>Start for free </button>
+              <button className="btn-gd" style={{ padding: "14px 42px", fontSize: 15 }} onClick={() => setScreen("login")}>Log in</button>
             </div>
           </div>
         </section>
@@ -399,7 +417,7 @@ useEffect(() => {
               <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 400, height: 200, background: "radial-gradient(ellipse,rgba(139,92,246,0.08) 0%,transparent 70%)", pointerEvents: "none" }} />
               <h2 style={{ fontSize: "clamp(22px,3.5vw,34px)", fontWeight: 800, color: d ? "#f0eeff" : "#1e1b4b", marginBottom: 12 }}>Ready to chat responsibly?</h2>
               <p style={{ color: d ? "#9b91c4" : "#5b21b6", marginBottom: 28, fontSize: 15 }}>Join students exploring ethical AI — completely free.</p>
-              <button className="btn-p" style={{ padding: "14px 44px", fontSize: 15 }} onClick={() => setScreen("signup")}>Create free account →</button>
+              <button className="btn-p" style={{ padding: "14px 44px", fontSize: 15 }} onClick={() => setScreen("signup")}>Create free account </button>
             </div>
           </div>
         </section>
@@ -471,7 +489,7 @@ useEffect(() => {
                   <button type="submit" className="btn-p" style={{ width: "100%", padding: "13px", fontSize: 14, marginTop: 4, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
                     {authLoading
                       ? <span style={{ width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%", display: "inline-block", animation: "spin 0.7s linear infinite" }} />
-                      : isLogin ? "Sign in →" : "Create account →"}
+                      : isLogin ? "Log in " : "Create account →"}
                   </button>
                 </div>
               </form>
