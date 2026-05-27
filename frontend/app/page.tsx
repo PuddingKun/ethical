@@ -323,7 +323,7 @@ useEffect(() => {
   <source
     src={
       isMobile
-        ? "/aether-mobile.mp4"
+        ? "/aether-intro-mobile.mp4"
         : "/aether-intro.mp4"
     }
     type="video/mp4"
