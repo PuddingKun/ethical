@@ -24,7 +24,7 @@ type ChatSession = { id: string; title: string; messages: Message[]; time: strin
 type Screen = "landing" | "login" | "signup" | "chat";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-const DEVS = ["Developer 1", "Developer 2", "Developer 3", "Developer 4", "Developer 5"];
+const DEVS = ["Shreedeep Patra", "Siddhartha Singh", "Priyota khatua", "Riteca Mandal", "Kankana Kanrar", "Tamanna Dey", "Debraj Debnath", "Samvedna kumari", "Rohan Debnath"];
 
 export default function Home() {
 
