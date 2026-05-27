@@ -27,8 +27,35 @@ const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 const DEVS = ["Developer 1", "Developer 2", "Developer 3", "Developer 4", "Developer 5"];
 
 export default function Home() {
+
+ const [isMobile, setIsMobile] =
+useState(false);
+
+useEffect(() => {
+  const checkMobile = () => {
+    setIsMobile(
+      window.innerWidth <= 768
+    );
+  };
+
+  checkMobile();
+
+  window.addEventListener(
+    "resize",
+    checkMobile
+  );
+
+  return () =>
+    window.removeEventListener(
+      "resize",
+      checkMobile
+    );
+}, []);
+
   const [screen, setScreen] = useState<Screen>("landing");
   const [dark, setDark] = useState(true);
+
+
   const [authForm, setAuthForm] = useState({ name: "", email: "", password: "" });
   const [authError, setAuthError] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
@@ -236,12 +263,26 @@ export default function Home() {
 
         {/* FIXED NAVBAR — translucent over video */}
         <nav style={{
-          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          padding: "14px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-          background: "rgba(255,255,255,0.15)", backdropFilter: "blur(20px) saturate(180%)",
-          WebkitBackdropFilter: "blur(20px) saturate(180%)",
-          borderBottom: "1px solid rgba(255,255,255,0.25)"
-        }}>
+  position: "fixed",
+  top: 0,
+  left: 0,
+  right: 0,
+  zIndex: 100,
+
+  padding: isMobile
+    ? "10px 14px"
+    : "14px 32px",
+
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  gap: isMobile ? 8 : 16,
+
+  background:"rgba(255,255,255,0.15)",
+  backdropFilter:"blur(20px)",
+  WebkitBackdropFilter:"blur(20px)",
+}}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <img src={LOGO_SRC} alt="Aether" style={{ width: 34, height: 34, borderRadius: 9, objectFit: "cover", animation: "glow 3s ease-in-out infinite" }} />
             <span style={{ fontSize: 18, fontWeight: 800, background: "linear-gradient(135deg,#a78bfa,#f9a8d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Aether</span>
@@ -254,12 +295,40 @@ export default function Home() {
 
         {/* SECTION 1 — Full screen video, nothing in the middle */}
         <section style={{ position: "relative", width: "100%", height: "100dvh", overflow: "hidden" }}>
-          <video
-            autoPlay muted loop playsInline
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", zIndex: 0 }}
-          >
-            <source src="/aether-intro.mp4" type="video/mp4" />
-          </video>
+
+
+<video
+    key={isMobile ? "mobile" : "desktop"}
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  style={{
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+
+    objectFit: "cover",
+
+    objectPosition:
+      isMobile
+        ? "center center"
+        : "center center",
+
+    zIndex: 0
+  }}
+>
+  <source
+    src={
+      isMobile
+        ? "/aether-mobile.mp4"
+        : "/aether-intro.mp4"
+    }
+    type="video/mp4"
+  />
+</video>
           {/* Very subtle bottom fade so next section blends in */}
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "22%", background: "linear-gradient(to bottom, transparent, rgba(12,11,18,0.95))", zIndex: 1, pointerEvents: "none" }} />
 
