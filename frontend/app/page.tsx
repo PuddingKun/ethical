@@ -238,6 +238,9 @@ useEffect(() => {
     ::-webkit-scrollbar{width:3px;}
     ::-webkit-scrollbar-thumb{background:rgba(139,92,246,0.35);border-radius:4px;}
     textarea,input{-webkit-appearance:none;font-family:inherit;}
+.inp{width:100%;padding:14px 18px;border-radius:14px;font-size:14px;font-family:inherit;transition:all 0.25s;border:1.5px solid;display:block;box-sizing:border-box;}
+.inp:focus{outline:none;box-shadow:0 0 0 3px rgba(139,92,246,0.18),0 0 20px rgba(139,92,246,0.08);}
+.inp::placeholder{opacity:0.4;}
     button{cursor:pointer;font-family:inherit;}
     .btn-p{background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;color:#fff;border-radius:12px;font-weight:600;transition:all 0.22s;}
     .btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(139,92,246,0.45);}
@@ -463,35 +466,38 @@ useEffect(() => {
 
           <div className="scIn" style={{ width: "100%", maxWidth: 420, position: "relative", zIndex: 1 }}>
             <button onClick={() => setScreen("landing")} style={{ background: "none", border: "none", color: d ? "#5a5180" : "#8b5cf6", fontSize: 13, cursor: "pointer", marginBottom: 22, display: "flex", alignItems: "center", gap: 6, padding: 0 }}>← Back to home</button>
-            <div style={{ background: d ? "rgba(18,15,30,0.97)" : "#ffffff", border: `1.5px solid ${d ? "rgba(139,92,246,0.25)" : "rgba(139,92,246,0.2)"}`, borderRadius: 22, padding: "38px 32px", backdropFilter: "blur(24px)", boxShadow: d ? "0 28px 70px rgba(0,0,0,0.4)" : "0 20px 60px rgba(139,92,246,0.1)" }}>
+            <div style={{ background: d ? "rgba(18,15,30,0.97)" : "#ffffff", border: `1.5px solid ${d ? "rgba(139,92,246,0.25)" : "rgba(139,92,246,0.2)"}`, borderRadius: 22, padding: "38px 28px", backdropFilter: "blur(24px)", boxShadow: d ? "0 28px 70px rgba(0,0,0,0.4)" : "0 20px 60px rgba(139,92,246,0.1)" }}>
               <div style={{ textAlign: "center", marginBottom: 30 }}>
                 <img src={LOGO_SRC} alt="Aether" style={{ width: 54, height: 54, borderRadius: 14, objectFit: "cover", margin: "0 auto 14px", display: "block", animation: "glow 3s ease-in-out infinite" }} />
                 <h1 style={{ fontSize: 22, fontWeight: 800, color: d ? "#f0eeff" : "#1e1b4b", marginBottom: 6 }}>{isLogin ? "Welcome back" : "Create account"}</h1>
                 <p style={{ fontSize: 13, color: d ? "#9b91c4" : "#5b21b6" }}>{isLogin ? "Sign in to continue to Aether" : "Start your ethical AI journey"}</p>
               </div>
               <form onSubmit={e => handleAuth(e, isLogin)}>
-                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                  {!isLogin && (
-                    <div>
-                      <label style={{ fontSize: 12, color: d ? "#9b91c4" : "#5b21b6", fontWeight: 500, marginBottom: 6, display: "block" }}>Full name</label>
-                      <input className="inp" type="text" placeholder="Your name" value={authForm.name} onChange={e => setAuthForm(p => ({ ...p, name: e.target.value }))} style={{ background: d ? "#1a1630" : "#f3f0ff", color: d ? "#f0eeff" : "#1e1b4b", borderColor: d ? "rgba(139,92,246,0.25)" : "rgba(139,92,246,0.2)" }} />
-                    </div>
-                  )}
-                  <div>
-                    <label style={{ fontSize: 12, color: d ? "#9b91c4" : "#5b21b6", fontWeight: 500, marginBottom: 6, display: "block" }}>Email address</label>
-                    <input className="inp" type="email" placeholder="you@example.com" value={authForm.email} onChange={e => setAuthForm(p => ({ ...p, email: e.target.value }))} style={{ background: d ? "#1a1630" : "#f3f0ff", color: d ? "#f0eeff" : "#1e1b4b", borderColor: d ? "rgba(139,92,246,0.25)" : "rgba(139,92,246,0.2)" }} />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: 12, color: d ? "#9b91c4" : "#5b21b6", fontWeight: 500, marginBottom: 6, display: "block" }}>Password</label>
-                    <input className="inp" type="password" placeholder="••••••••" value={authForm.password} onChange={e => setAuthForm(p => ({ ...p, password: e.target.value }))} style={{ background: d ? "#1a1630" : "#f3f0ff", color: d ? "#f0eeff" : "#1e1b4b", borderColor: d ? "rgba(139,92,246,0.25)" : "rgba(139,92,246,0.2)" }} />
-                  </div>
-                  {authError && <div style={{ padding: "10px 14px", background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.25)", borderRadius: 9, fontSize: 12, color: "#f87171" }}>{authError}</div>}
-                  <button type="submit" className="btn-p" style={{ width: "100%", padding: "13px", fontSize: 14, marginTop: 4, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
-                    {authLoading
-                      ? <span style={{ width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%", display: "inline-block", animation: "spin 0.7s linear infinite" }} />
-                      : isLogin ? "Log in " : "Create account →"}
-                  </button>
-                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+  {!isLogin && (
+    <div style={{ width: "100%" }}>
+      <label style={{ fontSize: 12, color: d ? "#9b91c4" : "#5b21b6", fontWeight: 500, marginBottom: 6, display: "block" }}>Full name</label>
+      <input className="inp" type="text" placeholder="Your name" value={authForm.name} onChange={e => setAuthForm(p => ({ ...p, name: e.target.value }))}
+        style={{ background: d ? "#1a1630" : "#f3f0ff", color: d ? "#f0eeff" : "#1e1b4b", borderColor: d ? "rgba(139,92,246,0.25)" : "rgba(139,92,246,0.2)", width: "100%", display: "block" }} />
+    </div>
+  )}
+  <div style={{ width: "100%" }}>
+    <label style={{ fontSize: 12, color: d ? "#9b91c4" : "#5b21b6", fontWeight: 500, marginBottom: 6, display: "block" }}>Email address</label>
+    <input className="inp" type="email" placeholder="you@example.com" value={authForm.email} onChange={e => setAuthForm(p => ({ ...p, email: e.target.value }))}
+      style={{ background: d ? "#1a1630" : "#f3f0ff", color: d ? "#f0eeff" : "#1e1b4b", borderColor: d ? "rgba(139,92,246,0.25)" : "rgba(139,92,246,0.2)", width: "100%", display: "block" }} />
+  </div>
+  <div style={{ width: "100%" }}>
+    <label style={{ fontSize: 12, color: d ? "#9b91c4" : "#5b21b6", fontWeight: 500, marginBottom: 6, display: "block" }}>Password</label>
+    <input className="inp" type="password" placeholder="••••••••" value={authForm.password} onChange={e => setAuthForm(p => ({ ...p, password: e.target.value }))}
+      style={{ background: d ? "#1a1630" : "#f3f0ff", color: d ? "#f0eeff" : "#1e1b4b", borderColor: d ? "rgba(139,92,246,0.25)" : "rgba(139,92,246,0.2)", width: "100%", display: "block" }} />
+  </div>
+  {authError && <div style={{ padding: "10px 14px", background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.25)", borderRadius: 9, fontSize: 12, color: "#f87171" }}>{authError}</div>}
+  <button type="submit" className="btn-p" style={{ width: "100%", padding: "14px", fontSize: 14, marginTop: 4, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, borderRadius: 14 }}>
+    {authLoading
+      ? <span style={{ width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%", display: "inline-block", animation: "spin 0.7s linear infinite" }} />
+      : isLogin ? "Log in →" : "Create account →"}
+  </button>
+</div>
               </form>
               <div style={{ textAlign: "center", marginTop: 20, fontSize: 13, color: d ? "#5a5180" : "#8b5cf6" }}>
                 {isLogin ? "Don't have an account? " : "Already have an account? "}
